@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+
+  rms-ui:
+    container_name: rms-ui
+    stdin_open: true
+    build:
+      context: ./rms-ui/
+      dockerfile: Dockerfile
+    volumes:
+      - './rms-ui/:/app'
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_API_HOST=localhost:5000
+      - REACT_APP_IMAGE_SERVICE_HOST=localhost:5005
+      - REACT_APP_CANDIDATE_HOST=localhost:5004
+      - REACT_APP_ASSIGNMENT_HOST=localhost:5003
+      - REACT_APP_APPLICATION_HOST=localhost:5002
+      - REACT_APP_SUBMISSION_HOST=localhost:5001
+      - REACT_APP_GOOGLE_OAUTH2_CLIENT_ID=922613997337-bd2dn6sgo0bakrmq9bvo1iug6tvn4iav.apps.googleusercontent.com
+    ports:
+      - 3000:3000
+    networks:
+      - front_rms
+
+networks:
+  front_rms:
+    external:
+      name: rms

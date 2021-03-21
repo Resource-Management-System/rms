@@ -1,0 +1,108 @@
+version: '3.9'
+
+services:
+
+  rms-api:
+    container_name: rms-api
+    build:
+      context: ./rms-api/
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://rms-db:3306/rms_db
+      - SPRING_DATASOURCE_USERNAME=rms-api
+      - SPRING_DATASOURCE_PASSWORD=rmsapipassword
+      - SPRING_SECURITY_OATH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID=922613997337-bd2dn6sgo0bakrmq9bvo1iug6tvn4iav.apps.googleusercontent.com
+      - SPRING_SECURITY_OATH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET=i1uvFGh63fJ0Knb9fiuP8_lN
+    ports:
+      - 5000:5000
+    networks:
+      - api_rms
+
+  rms-application-service:
+    container_name: rms-application-service
+    build:
+      context: ./rms-application-service/
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://rms-db:3306/rms_db
+      - SPRING_DATASOURCE_USERNAME=rms-api
+      - SPRING_DATASOURCE_PASSWORD=rmsapipassword
+      - SPRING_SECURITY_OATH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID=922613997337-bd2dn6sgo0bakrmq9bvo1iug6tvn4iav.apps.googleusercontent.com
+      - SPRING_SECURITY_OATH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET=i1uvFGh63fJ0Knb9fiuP8_lN
+    ports:
+      - 5002:5002
+    networks:
+      - api_rms
+
+  rms-submission-service:
+    container_name: rms-submission-service
+    build:
+      context: ./rms-submission-service/
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://rms-db:3306/rms_db
+      - SPRING_DATASOURCE_USERNAME=rms-api
+      - SPRING_DATASOURCE_PASSWORD=rmsapipassword
+      - SPRING_SECURITY_OATH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID=922613997337-bd2dn6sgo0bakrmq9bvo1iug6tvn4iav.apps.googleusercontent.com
+      - SPRING_SECURITY_OATH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET=i1uvFGh63fJ0Knb9fiuP8_lN
+    ports:
+      - 5001:5001
+    networks:
+      - api_rms
+      - zapnet
+
+  rms-assignment-service:
+    container_name: rms-assignment-service
+    build:
+      context: ./rms-assignment-service/
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://rms-db:3306/rms_db
+      - SPRING_DATASOURCE_USERNAME=rms-api
+      - SPRING_DATASOURCE_PASSWORD=rmsapipassword
+      - SPRING_SECURITY_OATH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID=922613997337-bd2dn6sgo0bakrmq9bvo1iug6tvn4iav.apps.googleusercontent.com
+      - SPRING_SECURITY_OATH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET=i1uvFGh63fJ0Knb9fiuP8_lN
+    ports:
+      - 5003:5003
+    networks:
+      - api_rms
+
+  rms-candidate-service:
+    container_name: rms-candidate-service
+    build:
+      context: ./rms-candidate-service/
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://rms-db:3306/rms_db
+      - SPRING_DATASOURCE_USERNAME=rms-api
+      - SPRING_DATASOURCE_PASSWORD=rmsapipassword
+      - SPRING_SECURITY_OATH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID=922613997337-bd2dn6sgo0bakrmq9bvo1iug6tvn4iav.apps.googleusercontent.com
+      - SPRING_SECURITY_OATH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET=i1uvFGh63fJ0Knb9fiuP8_lN
+    ports:
+      - 5004:5004
+    networks:
+      - api_rms
+
+
+  rms-images-service:
+    container_name: rms-image-service
+    build:
+      context: ./rms-image-service/
+      dockerfile: Dockerfile
+    environment:
+      - AWS_ACCESS_KEY=ACCESS_KEY
+      - AWS_SECRET_KEY=SECRET_KEY
+      - AWS_REGION=eu-west-2
+      - AWS_ENDPONT=http://localstack:4566
+    ports:
+      - 5005:5005
+    networks:
+      - api_rms
+
+networks:
+  api_rms:
+    external:
+      name: rms
+  zapnet:
+      external:
+        name: zapnet

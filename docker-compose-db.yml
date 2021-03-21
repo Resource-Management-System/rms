@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+
+  rms-db:
+    container_name: rms-db
+    build:
+      context: ./rms-db/
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: rms-api
+      MYSQL_PASSWORD: rmsapipassword
+    networks:
+      - backend_rms
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-pWp770521", "--silent"]
+      interval: 1s
+      retries: 120
+
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack
+    ports:
+      - '4563-4599:4563-4599'
+      - '8055:8080'
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DATA_DIR=/tmp/s3/data
+    volumes:
+      - ./aws:/docker-entrypoint-initaws.d
+    networks:
+      - backend_rms
+
+networks:
+  backend_rms:
+    external:
+      name: rms
+

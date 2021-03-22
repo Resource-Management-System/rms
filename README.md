@@ -27,6 +27,7 @@
 
 ### To build the React project you will need:
 * npm
+* node 7.5.4
 * Docker installed and running
 * Google Account (For sso use)
 * Google Chrome

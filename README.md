@@ -40,6 +40,16 @@
 ### To build all maven projects 
 Run ```mvn clean install``` in the parent root directory
 
+## WARNING 
+Some of the Maven dependencies have a vulnerability scanner as part of their build. 
+The vulnerabilities wil be checked on submission BUT they may go out of date and therefore break when this project is run in the future. If this is the case the Maven dependencie version will have to be updated OR the owasp check will have to be disabled.
+
+To disable the owasp check you will need to go to the service that is failing.
+Open the pom.xml
+Search for the 'org.owasp'.
+Increase the failBuildOnCVSS to 20.
+Then rebuild. 
+
 ### To build the UI
 Run ```npm install``` in ./rms-ui
 

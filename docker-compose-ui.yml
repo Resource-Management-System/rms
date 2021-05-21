@@ -18,7 +18,7 @@ services:
       - REACT_APP_ASSIGNMENT_HOST=localhost:5003
       - REACT_APP_APPLICATION_HOST=localhost:5002
       - REACT_APP_SUBMISSION_HOST=localhost:5001
-      - REACT_APP_GOOGLE_OAUTH2_CLIENT_ID=922613997337-bd2dn6sgo0bakrmq9bvo1iug6tvn4iav.apps.googleusercontent.com
+      - REACT_APP_GOOGLE_OAUTH2_CLIENT_ID=REDACTED
     ports:
       - 3000:3000
     networks:
